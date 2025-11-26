@@ -81,11 +81,9 @@ async def check_connection(url: str) -> bool:
                 method="HEAD",
                 url=url,
                 timeout=10,
+                follow_redirects=True,
             )
-        if response.status_code != 200:
-            return False
-        else:
-            return True
+        return 200 <= response.status_code < 400
     except httpx.TimeoutException:
         return False
 
